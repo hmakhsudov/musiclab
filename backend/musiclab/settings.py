@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-t(i@7s22++^i47ww2^_e((-o3gxw85t34oor!u^^+fa)m2gy5-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -91,8 +91,8 @@ DATABASES = {
         'NAME': 'musiclab',
         'USER': 'postgres',
         'PASSWORD': '1234',
-        'HOST': 'localhost',  # Если база данных запущена на локальном компьютере
-        'PORT': '5432',       # Порт, на котором запущена PostgreSQL
+        'HOST': 'db',  # Имя контейнера PostgreSQL в Docker Compose
+        'PORT': '5432',
     }
 }
 
