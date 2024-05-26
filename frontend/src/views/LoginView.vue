@@ -43,22 +43,27 @@ const errorMessage = ref('');
 
 const loginUser = async () => {
   try {
+    console.log('Sending login request with data:', loginData.value); // Лог отправляемых данных
     const response = await axios.post('http://127.0.0.1:8000/api/v1/token/', {
       username: loginData.value.username,
       password: loginData.value.password
     });
-    
+    console.log('Response data:', response.data); // Лог ответа сервера
     const token = response.data.access;
+    console.log('Access token:', token); // Лог токена доступа
     localStorage.setItem('accessToken', token);
+    console.log('Access token saved to localStorage'); // Лог сохранения токена в localStorage
     // Перенаправление на другую страницу после успешного входа
-    router.push('/');
+    router.push('/profile');
   } catch (error) {
     // Обработка ошибки аутентификации
     errorMessage.value = 'Неправильные учетные данные';
+    console.log('Error details:', error); // Лог деталей ошибки
     console.error('Authentication error:', errorMessage.value);
   }
 };
 </script>
+
 
 <style scoped>
     h1{

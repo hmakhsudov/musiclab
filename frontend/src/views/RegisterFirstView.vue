@@ -31,7 +31,7 @@
     import { reactive, ref } from 'vue';
 
 
- const responseObj = ref({
+    const responseObj = ref({
   username: '',
   email: '',
   password1: '',
@@ -48,6 +48,8 @@ const registerUser = async () => {
       return; // Прерываем отправку запроса
     }
 
+    console.log('Отправляемые данные:', responseObj.value);
+
     const response = await fetch('http://127.0.0.1:8000/api/v1/register/', {
       method: 'POST',
       headers: {
@@ -56,11 +58,14 @@ const registerUser = async () => {
       body: JSON.stringify(responseObj.value)
     });
 
+    console.log('Ответ сервера:', response);
+
     const responseData = await response.json();
 
     if (response.ok) {
       // Регистрация прошла успешно
       console.log('User registered successfully');
+      window.location.href = '/login';
     } else {
       // Обработка ошибки регистрации
       errorMessage.value = responseData.error || 'Something went wrong.';
@@ -72,6 +77,7 @@ const registerUser = async () => {
     console.error('Connection error:', error);
   }
 };
+
 
 </script>
 

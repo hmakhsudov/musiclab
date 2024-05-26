@@ -1,12 +1,4 @@
-<script>
-import Header from '../components/Header.vue'
 
-export default {
-  components: {
-    Header,
-  }
-}
-</script>
 <template>
     <div>
 
@@ -29,39 +21,8 @@ export default {
                     </div>
                     <div class="main__tests-content">
                         <div class="main__tests-content-tests">
-                            <div class="test__cart">
-                                <div class="test__cart-title">
-                                    Рок и Металл
-                                </div>
-                                <div class="test__cart-quantity">30 вопросов</div>
-                                <div class="test__cart-genre">Жанр: рок</div>
-                                <div class="test__cart-type">Тип: название песен</div>
-                                <div class="test__cart-start-wrapper">
-                                    <a href="#" class="test__cart-start">Начать!</a>
-                                </div>
-                            </div>
-                            <div class="test__cart">
-                                <div class="test__cart-title">
-                                    Рок и Металл
-                                </div>
-                                <div class="test__cart-quantity">30 вопросов</div>
-                                <div class="test__cart-genre">Жанр: рок</div>
-                                <div class="test__cart-type">Тип: название песен</div>
-                                <div class="test__cart-start-wrapper">
-                                    <a href="#" class="test__cart-start">Начать!</a>
-                                </div>
-                            </div>
-                            <div class="test__cart">
-                                <div class="test__cart-title">
-                                    Рок и Металл
-                                </div>
-                                <div class="test__cart-quantity">30 вопросов</div>
-                                <div class="test__cart-genre">Жанр: рок</div>
-                                <div class="test__cart-type">Тип: название песен</div>
-                                <div class="test__cart-start-wrapper">
-                                    <a href="#" class="test__cart-start">Начать!</a>
-                                </div>
-                            </div>
+                            <TestCart v-for="test in tests" :key="test.id" :test="test"/>
+  
                         </div>
                         <div class="main__tests-content-pag">
                             <div class="pag__element">1</div>
@@ -78,32 +39,9 @@ export default {
                     Статьи
                 </div>
                 <div class="main__blogs-blogs">
-                    <div class="blog">
-                        <div class="blog-image"><img src="/img/groups/group1.png" alt=""></div>
-                        <div class="blog-content">
-                            <div class="blog-group">ABBA</div>
-                            <div class="blog-type">Тип: о группе</div>
-                            <div class="blog-title">
-                                Драма и душевная боль, стоящая за диско-хитами ABBA
-                            </div>
-                        </div>
-                        <a href="#" class="main__blog-read">
-                            Читать!
-                        </a>
-                    </div>
-                    <div class="blog">
-                        <div class="blog-image"><img src="/img/groups/group2.png" alt=""></div>
-                        <div class="blog-content">
-                            <div class="blog-group">ABBA</div>
-                            <div class="blog-type">Тип: о группе</div>
-                            <div class="blog-title">
-                                Драма и душевная боль, стоящая за диско-хитами ABBA
-                            </div>
-                        </div>
-                        <a href="#" class="main__blog-read">
-                            Читать!
-                        </a>
-                    </div>
+                    <BlogCart/>
+                    <BlogCart/>
+                    <BlogCart/>
                 </div>
                 <div class="main__blogs-content-pag">
                             <div class="pag__element">1</div>
@@ -140,7 +78,28 @@ export default {
     </div>
 
 </template>
+<script setup>
+import Header from '../components/Header.vue'
+import BlogCart from '../components/BlogCart.vue'
+import TestCart from '../components/TestCart.vue'
+import {onMounted, ref} from 'vue'
 
+import axios from 'axios'
+    const tests = ref([]);
+
+    const getTests = async () => {
+        try {
+            const { data } = await axios.get('http://127.0.0.1:8000/api/v1/testlist/')
+            tests.value = data
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    onMounted(() => {
+        getTests()
+    })
+</script>
 
 <style scoped>
     .welcome__content{
@@ -238,52 +197,7 @@ export default {
         font-size: 32px;
     }
 
-    .blog{
-        position: relative;
-        background-color: #C09B93;
-        width: 100%;
-        display: flex;   
-        border-radius: 19px;
-        margin-bottom: 41px;    
-        height: 263px;
-    }
-    .blog-image{
-        margin-right: 40px;
-        height: 100%;
-    }
-    .blog-image img{
-        height: 100%;
-    }
-    .blog-content{
-        padding-top: 40px;
-    }
-    .blog-group{
-        font-size: 24px;
-        margin-bottom: 40px;
-    }
-    .blog-type{
-        font-size: 16px;
-        border-top: 1px solid #fff;
-        border-radius: 30px; 
-        padding-top: 13px;
-        padding-left: 35px;
-        padding-bottom: 24px;
-        width: 435px;
-        box-sizing: border-box;
 
-        
-    }
-    .blog-title{
-        box-sizing: border-box;
-        width: 435px;
-        font-size: 16px;
-        border-top: 1px solid #fff;
-        border-radius: 30px; 
-        padding-left: 35px;
-        padding-top: 13px;
-        padding-bottom: 24px;
-        padding-right: 32px;
-    }
     
     .main__blog-read{
         position: absolute;

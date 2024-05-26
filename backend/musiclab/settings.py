@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     #apps
     'testsapp',
     'myauth',
+    'blogs',
 ]
 
 MIDDLEWARE = [
@@ -91,7 +92,7 @@ DATABASES = {
         'NAME': 'musiclab',
         'USER': 'postgres',
         'PASSWORD': '1234',
-        'HOST': 'db',  # Имя контейнера PostgreSQL в Docker Compose
+        'HOST': 'localhost',  # Имя контейнера PostgreSQL в Docker Compose
         'PORT': '5432',
     }
 }
@@ -106,12 +107,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 

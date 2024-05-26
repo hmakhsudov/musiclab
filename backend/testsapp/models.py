@@ -16,7 +16,7 @@ class Test(models.Model):
         ('Смешанное', 'Смешанное'),
     )
     title = models.CharField(_("Название"), max_length=220)
-    genre = models.ForeignKey(Genre, verbose_name=_("Жанр"), on_delete=models.CASCADE)
+    genre = models.ForeignKey('Genre', verbose_name=_("Жанр"), on_delete=models.CASCADE)
     # questions_number = models.IntegerField(_("Количество вопросов"))
     testtype = models.CharField(_("Тип теста"), max_length=20, choices=TEST_TYPES)
     

@@ -8,7 +8,12 @@ from .serializers import TestsSerializer, TestTextQuestionSerializer, TestAnswer
 class TestAPIList(generics.ListAPIView):
    queryset = Test.objects.all()
    serializer_class = TestsSerializer
-   
+
+class TestAPIRetrieve(generics.RetrieveAPIView):
+    queryset = Test.objects.all()  # Определяем набор объектов для запроса
+    serializer_class = TestsSerializer
+    lookup_field = 'id'  # Устанавливаем ожидаемое имя URL параметра для идентификации объекта
+
    
 class TestTextQuestionDetailView(generics.RetrieveAPIView):
     serializer_class = TestTextQuestionSerializer

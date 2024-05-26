@@ -5,14 +5,14 @@
                 <Header/>
                 <div class="test__page-top-content">
                     <div class="test__top-text">
-                        <div class="test__top-title">Distrupted</div>
+                        <div class="test__top-title">{{ test }}</div>
                         <div class="test__top-typetext">Знание текстов песен</div>
                     </div>
                     <div class="test__top-quantityblock">
                         <div class="test__top-quantity-label">
-                            Кол-во вопросов 
+                           Кол-во вопросов
                         </div>
-                        <div class="test__top-quantity">15</div>
+                        <div class="test__top-quantity">{{ questionsCount }}</div>
                     </div>
                 </div>
             </div>
@@ -23,9 +23,42 @@
 
 
 <script setup>
-    import Header from '../components/Header.vue'
-    import TestQuestion from '../components/TestQuestion.vue'
+import Header from '../components/Header.vue';
+import TestQuestion from '../components/TestQuestion.vue';
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
 
+// Создаем реактивные переменные для хранения данных о тесте
+const test = ref(null);
+const questionsCount = ref(null);
+
+// Функция для получения ID теста из URL
+const getTestIdFromUrl = () => {
+  const url = window.location.href;
+  const parts = url.split('/');
+  const testIdIndex = parts.indexOf('test') + 1;
+  return parts[testIdIndex];
+};
+
+// Функция для выполнения запроса к API и получения данных о тесте
+const fetchTestData = async () => {
+  try {
+    const testId = getTestIdFromUrl();
+    const response = await axios.get(`http://127.0.0.1:8000/api/v1/test/${testId}/`);
+    console.log(response);
+    const testData = response.data;
+    
+    // Записываем данные о тесте в соответствующие переменные
+    test.value = testData.title;
+    console.log(test.value);
+    questionsCount.value = testData.questions_count;
+  } catch (error) {
+    console.error('Ошибка при получении данных о тесте:', error);
+  }
+};
+
+// Вызываем функцию fetchTestData после монтирования компонента
+onMounted(fetchTestData);
 </script>
 
 <style scoped>

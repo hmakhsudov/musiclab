@@ -2,10 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import WelcomeView from '@/views/WelcomeView.vue'
 import RegisterFirstView from '@/views/RegisterFirstView.vue'
 import RegisterSecondView from '@/views/RegisterSecondView.vue'
-import Blog from '@/components/Blog.vue'
+import BlogView from '@/views/BlogView.vue'
 import TestsView from '@/views/TestsView.vue'
 import TestPageView from '@/views/TestPageView.vue'  // Подставьте путь к компоненту, отображающему страницу теста
 import LoginView from '@/views/LoginView.vue'  // Подставьте путь к компоненту, отображающему страницу теста
+import ProfileView from '@/views/ProfileView.vue'
 
 export default createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,7 +34,7 @@ export default createRouter({
     {
       path: '/blog/',
       name: 'blog',
-      component: Blog,
+      component: BlogView,
     },
     {
       path: '/tests/',
@@ -44,6 +45,11 @@ export default createRouter({
       path: '/test/:id/question/:questionIndex',  // Маршрут с динамическим параметром id для передачи ID теста
       name: 'TestPage',
       component: TestPageView
+    },
+    {
+      path: '/profile/',  // Маршрут с динамическим параметром id для передачи ID теста
+      name: 'Profile',
+      component: ProfileView,
     },
   ]
 })
